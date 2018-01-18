@@ -18,6 +18,7 @@ class UserController {
 
   static createUser(req, res){
     let objUser = {
+      username: req.body.username,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, salt),
       status: req.body.status || 'user'
@@ -34,13 +35,14 @@ class UserController {
     .catch(err => res.status(500).send(err))
   }
 
-  // middleware (off)
+  // middleware on
   static updateUser(req, res) {
     User.findOne({
       _id: req.params.id,
-      // email: req.decoded.email
+      email: req.decoded.email
     })
     .then(user => {
+      user.username = req.body.username || user.username
       user.email = req.body.email || user.email,
       user.password = req.body.password || user.password,
       user.status   = req.body.status || user.status,
@@ -70,6 +72,7 @@ class UserController {
 
   static register(req, res){
     let objUser = {
+      username: req.body.username,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, salt)
     }
@@ -77,10 +80,10 @@ class UserController {
     let user = new User(objUser)
 
     user.save()
-    .then( dataUser => {
+    .then(dataUser => {
       res.status(200).json({
         message: 'sign up success!',
-        user: dataUser.email
+        user: dataUser.username
       })
     })
     .catch(err => res.status(500).send(err))
@@ -105,6 +108,7 @@ class UserController {
 
       let payload = {
         id       : user._id,
+        username : user.username,
         email    : user.email,
         status   : user.status
       }

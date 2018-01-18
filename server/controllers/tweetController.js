@@ -3,7 +3,7 @@ const Tweet = require('../models/tweetModel')
 class TweetController {
   static findAll(req, res) {
     Tweet.find()
-    .populate('userId')
+    .populate('author', 'username')
     .then(tweets => {
       res.status(200).json({
         message: 'list all Tweet',
@@ -16,7 +16,7 @@ class TweetController {
     })
   }
   
-  //middleware off
+  //middleware on
   static addNewTweet(req, res) {
    console.log('ini req boy', req.body.tweet.length)
     if (req.body.tweet.length > 140) {
@@ -33,7 +33,7 @@ class TweetController {
     let newTweet = new Tweet({
       tweet: req.body.tweet,
       hastag: getHastag,
-      // author: req.decoded.id
+      author: req.decoded.id
     })
     newTweet.save()
     .then(userTweet => {
@@ -48,11 +48,11 @@ class TweetController {
     })
   }
 
-   //middleware off
+   //middleware on
    static deleteTweet(req, res) {
     Tweet.remove({
       _id : req.params.id,
-      // author: req.decoded.id
+      author: req.decoded.id
     })
     .then(() => {
       res.status(200).json({
