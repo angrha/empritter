@@ -6,13 +6,13 @@ const tweetSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  tweets: {
+  tweet: {
     type: String,
     require: true
   },
   hastag: Array
 })
 
-const Tweet = mongoose.model('Tweet', postSchema);
+const Tweet = mongoose.model('Tweet', tweetSchema);
 
 module.exports = Tweet

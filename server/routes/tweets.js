@@ -4,6 +4,8 @@ const isLogin = require('../helper/authentication')
 const isAdmin = require('../helper/authorization')
 
 router.get('/', Tweet.findAll)
-
+router.post('/', Tweet.addNewTweet)
+// router.put('/:id', Tweet.updateTweet)
+// router.delete('/:id', Tweet.deleteTweet)
 
 module.exports = router
