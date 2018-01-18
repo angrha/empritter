@@ -37,6 +37,11 @@ const store = new Vuex.Store({
           console.log(err)
         })
     },
+    signout ({ commit }) {
+      localStorage.clear()
+      commit('isLogin', false)
+      router.push({ name: 'Home' })
+    },
     checkLogin ({ commit }) {
       if (localStorage.getItem(auth)) {
         commit('isLogin', true)
