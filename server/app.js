@@ -6,12 +6,13 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
-                  require('dotenv').config()
+require('dotenv').config()
+
 mongoose.connect('mongodb://localhost/empritter'); //connect to database
 
 const index = require('./routes/index');
 const users = require('./routes/users');
-const posts = require('./routes/posts');
+// const tweets = require('./routes/tweets');
 
 const app = express();
 app.use(cors())
@@ -26,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/api/users', users);
-app.use('/api/posts', posts)
+// app.use('/api/tweets', tweets)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

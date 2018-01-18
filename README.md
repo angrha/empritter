@@ -29,6 +29,7 @@
 | /api/users/signup | POST | signup user |
 | /api/users/signin | POST | signin user |
 | /users | GET | get all users (admin only) |
+| /users | POST | create users (admin only) |
 |/users/id | DELETE | delete spesific user (admin only) |
 | /users/:id/profile | GET | get profile user |
 | /users/:id/profile | PUT | edit profile user |
