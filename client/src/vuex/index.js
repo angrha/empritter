@@ -10,7 +10,8 @@ const baseUrl = 'http://localhost:3000'
 const store = new Vuex.Store({
   state: {
     login: false,
-    tweetList: []
+    tweetList: [],
+    formPost: false
   },
   mutations: {
     isLogin (state, payload) {
@@ -18,6 +19,9 @@ const store = new Vuex.Store({
     },
     mutatedTweet (state, payload) {
       state.tweetList = payload.tweets
+    },
+    checkForm (state, payload) {
+      state.formPost = payload
     }
   },
   actions: {
@@ -54,6 +58,21 @@ const store = new Vuex.Store({
           console.log(response.data.tweets)
           commit('mutatedTweet', response.data)
         })
+    },
+    posting ({ commit }) {
+      commit('checkForm', true)
+    },
+    postTweet ({commit}, payload) {
+      axios.post(baseUrl + '/api/tweets', payload, {
+        headers: {
+          token: localStorage.getItem(auth)
+        }
+      })
+        .then(response => {
+          console.log(response.data)
+          router.push({ name: 'Tweets' })
+        })
+        .catch(err => console.log(err))
     }
   }
 })
