@@ -12,7 +12,10 @@
             <router-link to="/" class="nav-link">Home <span class="sr-only">(current)</span></router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Tweets</a>
+            <router-link :to="{ name: 'Tweets' }" class="nav-link">Tweets</router-link>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Profile</a>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">

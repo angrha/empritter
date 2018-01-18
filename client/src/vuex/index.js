@@ -9,11 +9,15 @@ const baseUrl = 'http://localhost:3000'
 
 const store = new Vuex.Store({
   state: {
-    login: false
+    login: false,
+    tweetList: []
   },
   mutations: {
     isLogin (state, payload) {
       state.login = payload
+    },
+    mutatedTweet (state, payload) {
+      state.tweetList = payload.tweets
     }
   },
   actions: {
@@ -23,7 +27,7 @@ const store = new Vuex.Store({
           console.log(response.data)
           localStorage.setItem(auth, response.data.token)
           commit('isLogin', true)
-          // router.push({name: 'Tweets'})
+          router.push({name: 'Tweets'})
         })
         .catch(err => {
           console.log(err)
@@ -42,6 +46,13 @@ const store = new Vuex.Store({
         })
         .catch(err => {
           console.log(err)
+        })
+    },
+    getAllTweet ({ commit }) {
+      axios.get(baseUrl + '/api/tweets')
+        .then(response => {
+          console.log(response.data.tweets)
+          commit('mutatedTweet', response.data)
         })
     }
   }

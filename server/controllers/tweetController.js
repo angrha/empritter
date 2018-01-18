@@ -4,10 +4,10 @@ class TweetController {
   static findAll(req, res) {
     Tweet.find()
     .populate('userId')
-    .then(Tweets => {
+    .then(tweets => {
       res.status(200).json({
         message: 'list all Tweet',
-        Tweets: Tweets
+        tweets: tweets
       })
     })
     .catch(err => {
@@ -48,9 +48,20 @@ class TweetController {
     })
   }
 
-  static updateTweet(req, res) {
-    Tweet.findOne
+   //middleware off
+   static deleteTweet(req, res) {
+    Tweet.remove({
+      _id : req.params.id,
+      // author: req.decoded.id
+    })
+    .then(() => {
+      res.status(200).json({
+        message : 'tweet deleted',
+      })
+    })
+    .catch(err => res.status(500).send(err))
   }
+
 }
 
 module.exports = TweetController
